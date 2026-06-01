@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Case Hilton Hotels · IRS Pre-Reading</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink:       #0f1117;
+  --ink-2:     #2a2f3e;
+  --muted:     #6b7280;
+  --accent:    #1a56db;
+  --accent-bg: #eff6ff;
+  --warn:      #b45309;
+  --warn-bg:   #fffbeb;
+  --good:      #065f46;
+  --good-bg:   #ecfdf5;
+  --danger:    #991b1b;
+  --danger-bg: #fef2f2;
+  --border:    #e5e7eb;
+  --paper:     #f9fafb;
+  --white:     #ffffff;
+  --serif:     'DM Serif Display', Georgia, serif;
+  --sans:      'Barlow', system-ui, sans-serif;
+  --mono:      'DM Mono', 'Consolas', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+@page { size: A4; margin: 0; }
+
+body {
+  font-family: var(--sans);
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--ink);
+  background: #fff;
+  width: 210mm;
+  min-height: 297mm;
+  margin: 0 auto;
+  padding: 0;
+}
+
+/* ── HEADER ── */
+.header {
+  background: var(--ink);
+  color: #fff;
+  padding: 28px 40px 24px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: start;
+  gap: 16px;
+  border-bottom: 3px solid var(--accent);
+}
+.header-meta {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.45);
+  margin-bottom: 8px;
+}
+.header-title {
+  font-family: var(--serif);
+  font-size: 36px;
+  line-height: 1.1;
+  color: #fff;
+  letter-spacing: -.01em;
+}
+.header-sub {
+  font-size: 13px;
+  color: rgba(255,255,255,.65);
+  margin-top: 6px;
+  font-style: italic;
+}
+.header-kpi {
+  text-align: right;
+}
+.kpi-val {
+  font-family: var(--mono);
+  font-size: 28px;
+  font-weight: 500;
+  color: #60a5fa;
+  display: block;
+  letter-spacing: -.02em;
+}
+.kpi-lbl {
+  font-size: 10px;
+  color: rgba(255,255,255,.45);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+/* ── MAIN GRID ── */
+.main {
+  padding: 20px 40px 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.full { grid-column: 1 / -1; }
+
+/* ── SECTION ── */
+.section {
+  background: var(--white);
+  border: 1px solid var(--border);
+  padding: 14px 16px;
+}
+.section.accent-left { border-left: 3px solid var(--accent); }
+.section.warn-left   { border-left: 3px solid #d97706; }
+.section.good-left   { border-left: 3px solid #059669; }
+.section.danger-left { border-left: 3px solid #dc2626; }
+.section.dark {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #fff;
+}
+
+.sec-label {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  font-weight: 500;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 9px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.sec-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+.section.dark .sec-label { color: rgba(255,255,255,.35); }
+.section.dark .sec-label::after { background: rgba(255,255,255,.1); }
+
+/* ── TIMELINE ── */
+.timeline { display: flex; flex-direction: column; gap: 10px; }
+.tl-item { display: flex; gap: 12px; align-items: flex-start; }
+.tl-dot {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.tl-dot.warn  { background: #d97706; }
+.tl-dot.muted { background: var(--muted); }
+.tl-content {}
+.tl-year {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--accent);
+  font-weight: 500;
+  letter-spacing: .06em;
+}
+.tl-year.warn { color: #d97706; }
+.tl-year.danger { color: #dc2626; }
+.tl-text {
+  font-size: 12.5px;
+  color: var(--ink-2);
+  line-height: 1.5;
+}
+.tl-text strong { color: var(--ink); }
+
+/* ── KPI GRID ── */
+.kpi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); }
+.kpi-cell {
+  background: var(--white);
+  padding: 10px 12px;
+}
+.kpi-cell .l {
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  font-family: var(--mono);
+  margin-bottom: 3px;
+}
+.kpi-cell .v {
+  font-family: var(--mono);
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--ink);
+}
+.kpi-cell .v.blue { color: var(--accent); }
+.kpi-cell .v.warn { color: var(--warn); }
+.kpi-cell .v.good { color: var(--good); }
+.kpi-cell .sub {
+  font-size: 10.5px;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+/* ── COMPARISON TABLE ── */
+.cmp-table { width: 100%; border-collapse: collapse; font-size: 11.5px; }
+.cmp-table th {
+  background: var(--ink);
+  color: #fff;
+  text-align: left;
+  padding: 7px 10px;
+  font-weight: 600;
+  font-size: 10px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+.cmp-table td {
+  padding: 7px 10px;
+  border-bottom: 1px solid var(--border);
+  color: var(--ink-2);
+  vertical-align: top;
+}
+.cmp-table tr:last-child td { border-bottom: none; }
+.cmp-table tr:nth-child(even) td { background: var(--paper); }
+.cmp-table td.metric { color: var(--muted); font-size: 11px; }
+.cmp-table td .good { color: var(--good); font-weight: 600; }
+.cmp-table td .bad  { color: var(--danger); font-weight: 600; }
+.cmp-table td .mono { font-family: var(--mono); font-size: 11px; }
+
+/* ── IRS FLOW ── */
+.irs-flow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 12px 0 8px;
+}
+.party {
+  background: var(--ink);
+  color: #fff;
+  padding: 10px 16px;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: .04em;
+  text-align: center;
+  min-width: 80px;
+}
+.party.bank { background: var(--accent); }
+.flow-arrows {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.arrow-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.arrow-lbl {
+  flex: 1;
+  text-align: center;
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  padding: 4px 8px;
+  border-radius: 2px;
+}
+.arrow-lbl.fixed { background: #dbeafe; color: #1e40af; }
+.arrow-lbl.float { background: #d1fae5; color: #065f46; }
+.arrow-dir {
+  font-size: 14px;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+/* ── QUESTION CARDS ── */
+.q-list { display: flex; flex-direction: column; gap: 8px; }
+.q-card {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 10px 12px;
+  background: var(--paper);
+  border: 1px solid var(--border);
+}
+.q-num {
+  width: 22px; height: 22px;
+  background: var(--ink);
+  color: #fff;
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  border-radius: 50%;
+}
+.q-text { font-size: 12px; color: var(--ink-2); line-height: 1.5; }
+.q-text strong { color: var(--ink); }
+.q-hint {
+  font-size: 10.5px;
+  color: var(--muted);
+  margin-top: 4px;
+  font-style: italic;
+}
+
+/* ── DATA ROW ── */
+.data-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 5px 0;
+  border-bottom: 1px dashed var(--border);
+  font-size: 12px;
+}
+.data-row:last-child { border-bottom: none; }
+.data-row .l { color: var(--muted); }
+.data-row .v { font-family: var(--mono); font-weight: 500; color: var(--ink); }
+.data-row .v.accent { color: var(--accent); }
+.data-row .v.warn   { color: var(--warn); }
+.data-row .v.danger { color: var(--danger); }
+.data-row .v.good   { color: var(--good); }
+
+/* ── INSIGHT BOX ── */
+.insight {
+  padding: 10px 14px;
+  font-size: 12px;
+  line-height: 1.6;
+}
+.insight.warn   { background: var(--warn-bg);   border-left: 3px solid #d97706; color: #78350f; }
+.insight.good   { background: var(--good-bg);   border-left: 3px solid #059669; color: #064e3b; }
+.insight.accent { background: var(--accent-bg); border-left: 3px solid var(--accent); color: #1e3a8a; }
+.insight.danger { background: var(--danger-bg); border-left: 3px solid #dc2626; color: #7f1d1d; }
+.insight strong { font-weight: 700; }
+
+/* ── FOOTER ── */
+.footer {
+  background: var(--paper);
+  border-top: 1px solid var(--border);
+  padding: 10px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 10px;
+  color: var(--muted);
+  font-family: var(--mono);
+  letter-spacing: .06em;
+}
+
+/* ── UTILS ── */
+p { margin-bottom: 7px; font-size: 12.5px; color: var(--ink-2); line-height: 1.55; }
+p:last-child { margin-bottom: 0; }
+p strong { color: var(--ink); }
+.small { font-size: 11px; color: var(--muted); }
+.tag {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  font-weight: 500;
+  padding: 2px 7px;
+  letter-spacing: .06em;
+  border-radius: 2px;
+  margin-right: 4px;
+}
+.tag.blue   { background: #dbeafe; color: #1e40af; }
+.tag.green  { background: #d1fae5; color: #065f46; }
+.tag.red    { background: #fee2e2; color: #991b1b; }
+.tag.yellow { background: #fef3c7; color: #92400e; }
+</style>
+</head>
+<body>
+
+<!-- ══ HEADER ══ -->
+<div class="header">
+  <div>
+    <div class="header-meta">CH.4 · CASE STUDIES · IRS &nbsp;/&nbsp; Đọc trước buổi thảo luận</div>
+    <div class="header-title">Hilton Hotels<br>& Interest Rate Swap</div>
+    <div class="header-sub">Khi một trong những tập đoàn khách sạn lớn nhất thế giới phải lựa chọn giữa IRS OTC và Eurodollar Futures để hedge $1.275 tỷ đô lãi suất thả nổi — 2007</div>
+  </div>
+  <div class="header-kpi">
+    <span class="kpi-val">$1.275B</span>
+    <span class="kpi-lbl">Notional cần hedge</span>
+    <div style="margin-top:12px;">
+      <span class="kpi-val" style="font-size:18px; color:#34d399;">98.76%</span>
+      <span class="kpi-lbl">Hiệu quả hedge IRS</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MAIN ══ -->
+<div class="main">
+
+  <!-- COL LEFT: Bối cảnh -->
+  <div class="section accent-left">
+    <div class="sec-label">01 · Bối cảnh & Vấn đề</div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot">1</div>
+        <div class="tl-content">
+          <div class="tl-year">2007 · Blackstone LBO</div>
+          <div class="tl-text">Blackstone mua lại Hilton Hotels với giá <strong>$26 tỷ</strong> — thương vụ LBO lớn nhất ngành khách sạn. Hilton gánh khoản nợ ~<strong>$20 tỷ</strong>, phần lớn lãi suất thả nổi (LIBOR + spread).</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot muted">2</div>
+        <div class="tl-content">
+          <div class="tl-year">Rủi ro lãi suất</div>
+          <div class="tl-text">LIBOR đang ở mức ~<strong>5.3%</strong>. Nếu tăng 1% → chi phí lãi vay tăng thêm <strong>$12.75M/năm</strong> chỉ trên khoản $1.275B. Không thể lập kế hoạch tài chính dài hạn.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">3</div>
+        <div class="tl-content">
+          <div class="tl-year">2007 · Quyết định hedge</div>
+          <div class="tl-text">Hilton ký <strong>IRS OTC</strong> — trả lãi cố định ~5.5%, nhận LIBOR thả nổi — để chuyển toàn bộ $1.275B nợ thả nổi thành nợ cố định.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot warn">!</div>
+        <div class="tl-content">
+          <div class="tl-year danger">2008 · Khủng hoảng tài chính</div>
+          <div class="tl-text">Fed cắt lãi suất khẩn cấp. LIBOR sụp đổ từ ~5% xuống còn <strong>0.25%</strong>. IRS trở thành gánh nặng — Hilton trả cố định 5.5% nhưng chỉ nhận lại 0.25%.</div>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot muted">4</div>
+        <div class="tl-content">
+          <div class="tl-year">2010 · Tái cơ cấu nợ</div>
+          <div class="tl-text">Hilton buộc phải tái cơ cấu khoản nợ khổng lồ. Lý do thực sự: doanh thu sụp đổ do khủng hoảng kinh tế — IRS chỉ là "người gánh thêm" trong bão.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COL RIGHT: Thông số IRS -->
+  <div style="display:flex; flex-direction:column; gap:16px;">
+
+    <div class="section">
+      <div class="sec-label">02 · Thông số hợp đồng IRS</div>
+      <div class="kpi-grid">
+        <div class="kpi-cell">
+          <div class="l">Notional</div>
+          <div class="v blue">$1.275B</div>
+          <div class="sub">Vốn khái toán</div>
+        </div>
+        <div class="kpi-cell">
+          <div class="l">Lãi cố định trả</div>
+          <div class="v warn">~5.5%/năm</div>
+          <div class="sub">Hilton trả cho ngân hàng</div>
+        </div>
+        <div class="kpi-cell">
+          <div class="l">Lãi thả nổi nhận</div>
+          <div class="v good">LIBOR 3M</div>
+          <div class="sub">Ngân hàng trả cho Hilton</div>
+        </div>
+        <div class="kpi-cell">
+          <div class="l">Kỳ hạn</div>
+          <div class="v">7 năm</div>
+          <div class="sub">2007 → 2014</div>
+        </div>
+      </div>
+
+      <!-- Flow diagram -->
+      <div class="irs-flow">
+        <div class="party">HILTON</div>
+        <div class="flow-arrows">
+          <div class="arrow-row">
+            <div class="arrow-dir">→</div>
+            <div class="arrow-lbl warn" style="background:#fef3c7; color:#92400e;">Trả cố định ~5.5%/năm</div>
+            <div class="arrow-dir">→</div>
+          </div>
+          <div class="arrow-row">
+            <div class="arrow-dir">←</div>
+            <div class="arrow-lbl float">Nhận LIBOR 3M (thả nổi)</div>
+            <div class="arrow-dir">←</div>
+          </div>
+        </div>
+        <div class="party bank">NGÂN HÀNG</div>
+      </div>
+      <div class="insight accent" style="margin-top:6px;">
+        <strong>Kết quả thực tế:</strong> Hilton trả net = 5.5% + spread khoản vay − LIBOR. Khi LIBOR gần bằng lãi cố định → net ≈ spread, chi phí ổn định. Mục tiêu đạt được.
+      </div>
+    </div>
+
+    <div class="section warn-left">
+      <div class="sec-label">03 · Kịch bản sau khủng hoảng 2008</div>
+      <div class="data-row"><span class="l">LIBOR lúc ký (2007)</span><span class="v good">~5.3%</span></div>
+      <div class="data-row"><span class="l">LIBOR đáy (2009)</span><span class="v danger">0.25%</span></div>
+      <div class="data-row"><span class="l">Hilton trả cố định</span><span class="v warn">5.5%/năm</span></div>
+      <div class="data-row"><span class="l">Hilton nhận thả nổi</span><span class="v danger">0.25%/năm</span></div>
+      <div class="data-row"><span class="l">Net outflow từ IRS</span><span class="v danger">−5.25%/năm</span></div>
+      <div class="data-row"><span class="l">Thiệt hại ròng/năm</span><span class="v danger">~$66.9M</span></div>
+      <div class="insight warn" style="margin-top:8px;">
+        <strong>Wrong-Way Risk:</strong> Doanh thu khách sạn sụt giảm đúng lúc IRS tạo thêm outflow lớn. Hai rủi ro xảy ra đồng thời — đây là bài học kinh điển về Wrong-Way Risk trong quản trị rủi ro.
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FULL WIDTH: So sánh IRS vs Eurodollar Futures -->
+  <div class="section full">
+    <div class="sec-label">04 · IRS OTC vs. Eurodollar Futures — Cùng hedge $1.275B, kết quả hoàn toàn khác</div>
+    <table class="cmp-table">
+      <thead>
+        <tr>
+          <th style="width:22%;">Tiêu chí</th>
+          <th style="width:30%;"><span style="color:#93c5fd;">IRS OTC</span> ✓ Hilton chọn</th>
+          <th style="width:30%;"><span style="color:#fca5a5;">Eurodollar Futures</span> ✗ Không chọn</th>
+          <th>Ý nghĩa thực tế</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="metric">Số hợp đồng cần quản lý</td>
+          <td><span class="good">1 hợp đồng</span></td>
+          <td><span class="bad">7.532 hợp đồng</span></td>
+          <td class="small">Rủi ro vận hành tăng gấp hàng nghìn lần</td>
+        </tr>
+        <tr>
+          <td class="metric">Hiệu quả hedge (FAS 133)</td>
+          <td><span class="good mono">98.76%</span></td>
+          <td><span class="bad mono">93.80%</span></td>
+          <td class="small">ED Futures lệch pha reset — basis risk cao hơn</td>
+        </tr>
+        <tr>
+          <td class="metric">R² tương quan</td>
+          <td><span class="good mono">0.9999 ✓</span></td>
+          <td><span class="mono">0.9991</span></td>
+          <td class="small">IRS khớp gần tuyệt đối với exposure thực</td>
+        </tr>
+        <tr>
+          <td class="metric">Phân loại kế toán</td>
+          <td><span class="good">Cash Flow Hedge → OCI</span></td>
+          <td><span class="bad">Speculative → P&L</span></td>
+          <td class="small"><strong>Điểm khác biệt quan trọng nhất!</strong> EPS ổn định vs biến động</td>
+        </tr>
+        <tr>
+          <td class="metric">Tác động lên EPS khi LIBOR +1%</td>
+          <td><span class="good">Không đổi</span></td>
+          <td><span class="bad">Giảm $0.03/cổ phiếu</span></td>
+          <td class="small">Nhà đầu tư nhìn vào EPS khi quyết định giữ/bán cổ phiếu</td>
+        </tr>
+        <tr>
+          <td class="metric">Ký quỹ (Dodd-Frank)</td>
+          <td><span class="good">Miễn trừ (end-user) ✓</span></td>
+          <td><span class="bad">Daily margin call ✗</span></td>
+          <td class="small">7.532 × ~$500/HĐ = $3.77M bị "đóng băng"</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- COL LEFT: Câu hỏi thảo luận -->
+  <div class="section good-left">
+    <div class="sec-label">05 · Câu hỏi thảo luận — Chuẩn bị trước</div>
+    <div class="q-list">
+      <div class="q-card">
+        <div class="q-num">1</div>
+        <div>
+          <div class="q-text"><strong>Tại sao phân loại kế toán lại quyết định sự lựa chọn công cụ hedge?</strong> Nếu IRS và ED Futures cho cùng kết quả kinh tế, tại sao kế toán lại quan trọng đến vậy?</div>
+          <div class="q-hint">Gợi ý: Nghĩ về ai đọc báo cáo tài chính và họ quan tâm đến số liệu nào nhất.</div>
+        </div>
+      </div>
+      <div class="q-card">
+        <div class="q-num">2</div>
+        <div>
+          <div class="q-text"><strong>Hilton ký IRS vào 2007 — ngay trước khủng hoảng 2008.</strong> Khi LIBOR về 0.25%, IRS trở thành gánh nặng. Đây có phải là quyết định sai không?</div>
+          <div class="q-hint">Gợi ý: Hedging không phải đầu cơ. Mục tiêu ban đầu của họ là gì?</div>
+        </div>
+      </div>
+      <div class="q-card">
+        <div class="q-num">3</div>
+        <div>
+          <div class="q-text"><strong>Nếu bạn là CFO Hilton 2007, bạn sẽ thiết kế IRS như thế nào</strong> để tránh "Wrong-Way Risk" — IRS tạo thêm gánh nặng đúng lúc doanh thu sụt giảm?</div>
+          <div class="q-hint">Gợi ý: Kỳ hạn bao lâu? Hedge 100% hay một phần? Có thể thêm điều khoản nào?</div>
+        </div>
+      </div>
+      <div class="q-card">
+        <div class="q-num">4</div>
+        <div>
+          <div class="q-text"><strong>Hilton có thể kết hợp IRS OTC và ED Futures không?</strong> Tỷ lệ nào là tối ưu? Yếu tố nào quyết định tỷ lệ đó?</div>
+          <div class="q-hint">Gợi ý: Dòng tiền theo mùa, debt covenant, mức độ EPS sensitivity.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COL RIGHT: Bài học & Khái niệm cần biết -->
+  <div style="display:flex; flex-direction:column; gap:16px;">
+
+    <div class="section">
+      <div class="sec-label">06 · Khái niệm cốt lõi cần nắm trước</div>
+      <div class="data-row">
+        <span class="l">IRS (Interest Rate Swap)</span>
+        <span><span class="tag blue">Trả cố định</span><span class="tag green">Nhận thả nổi</span></span>
+      </div>
+      <div class="data-row">
+        <span class="l">Notional Principal</span>
+        <span><span class="tag yellow">Ảo — không di chuyển</span></span>
+      </div>
+      <div class="data-row">
+        <span class="l">FAS 133 / IFRS 9</span>
+        <span class="small" style="color:var(--ink);">Chuẩn mực kế toán công cụ tài chính</span>
+      </div>
+      <div class="data-row">
+        <span class="l">OCI (Other Comprehensive Income)</span>
+        <span><span class="tag green">Không qua P&L</span></span>
+      </div>
+      <div class="data-row">
+        <span class="l">Basis Risk</span>
+        <span class="small" style="color:var(--ink);">Rủi ro khi công cụ hedge không khớp hoàn toàn với exposure</span>
+      </div>
+      <div class="data-row">
+        <span class="l">Wrong-Way Risk</span>
+        <span class="small" style="color:var(--ink);">Hedge tạo tổn thất đúng lúc doanh nghiệp yếu nhất</span>
+      </div>
+      <div class="data-row">
+        <span class="l">Mark-to-Market (MTM)</span>
+        <span class="small" style="color:var(--ink);">Định giá theo thị trường hàng ngày → vào P&L</span>
+      </div>
+      <div class="data-row">
+        <span class="l">Dodd-Frank End-User Exemption</span>
+        <span><span class="tag green">Miễn ký quỹ IRS</span></span>
+      </div>
+    </div>
+
+    <div class="section danger-left">
+      <div class="sec-label">07 · Bài học quản trị rủi ro</div>
+      <div class="insight danger" style="border:none; padding:0; background:none; margin-bottom:8px;">
+        <strong>① Hedging ≠ đầu cơ.</strong> Mục tiêu là loại bỏ sự không chắc chắn — không phải kiếm lời từ hướng đi của lãi suất.
+      </div>
+      <div class="insight good" style="border:none; padding:0; background:none; margin-bottom:8px;">
+        <strong>② Kế toán là một phần của quyết định tài chính.</strong> Cùng một kết quả kinh tế nhưng phân loại khác → EPS hoàn toàn khác → giá cổ phiếu khác.
+      </div>
+      <div class="insight warn" style="border:none; padding:0; background:none; margin-bottom:8px;">
+        <strong>③ Đòn bẩy khuếch đại mọi rủi ro.</strong> $20B nợ LBO là nguyên nhân gốc rễ — IRS chỉ là lớp rủi ro thêm vào.
+      </div>
+      <div class="insight accent" style="border:none; padding:0; background:none;">
+        <strong>④ Thiết kế hedge phải gắn với vòng đời doanh nghiệp.</strong> Kỳ hạn, tỷ lệ hedge, điều khoản thoát — tất cả phụ thuộc vào đặc thù dòng tiền và cấu trúc vốn.
+      </div>
+    </div>
+
+    <div class="section" style="background:var(--ink); border-color:var(--ink); color:#fff;">
+      <div class="sec-label" style="color:rgba(255,255,255,.35);">Nguồn tham khảo</div>
+      <p style="color:rgba(255,255,255,.7); font-size:11.5px; margin-bottom:5px;">• Popova & Simkins (2014) — <em>"The Value of OTC Derivatives"</em>, ISDA Research Paper, tr. 20-22</p>
+      <p style="color:rgba(255,255,255,.7); font-size:11.5px; margin-bottom:5px;">• Chance & Brooks — <em>Derivatives and Risk Management</em>, 10th ed., Ch. 12</p>
+      <p style="color:rgba(255,255,255,.7); font-size:11.5px;">• FAS 133 — Accounting for Derivative Instruments and Hedging Activities (FASB)</p>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <span>HILTON HOTELS · IRS CASE STUDY · PRE-READING</span>
+  <span>Derivatives & Risk Management · Section 4 · Case Studies</span>
+  <span>ĐẠI HỌC CÔNG THƯƠNG TP.HCM</span>
+</div>
+
+</body>
+</html>
